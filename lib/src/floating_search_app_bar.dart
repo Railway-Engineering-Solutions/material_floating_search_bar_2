@@ -182,7 +182,7 @@ class FloatingSearchAppBar extends ImplicitlyAnimatedWidget {
   /// {@macro floating_search_bar.autocorrect}
   final bool autocorrect;
 
-  /// {@macro floating_search_bar. contextMenuBuilder}
+  /// {@macro floating_search_bar.contextMenuBuilder}
   final EditableTextContextMenuBuilder? contextMenuBuilder;
 
   final ValueChanged<KeyEvent>? onKeyEvent;
@@ -505,13 +505,12 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
     );
     return isAvailableSwipeBack
         ? _getBarWidget(bar)
-        : WillPopScope(
-            onWillPop: () async {
-              if (isOpen && !widget.alwaysOpened) {
+        : PopScope(
+            canPop: isOpen && !widget.alwaysOpened,
+            onPopInvokedWithResult: (bool didPop, Object? result) {
+              if (didPop) {
                 isOpen = false;
-                return false;
               }
-              return true;
             },
             child: _getBarWidget(bar),
           );
@@ -573,8 +572,8 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: <Color>[
-                backgroundColor.withOpacity(0.0),
-                backgroundColor.withOpacity(1.0),
+                backgroundColor.withAlpha(0),
+                backgroundColor.withAlpha(255),
               ],
             ),
           ),
@@ -687,7 +686,7 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
   @override
   FloatingSearchAppBarStyle get newValue {
     final ThemeData theme = Theme.of(context);
-    final AppBarTheme appBar = theme.appBarTheme;
+    final AppBarThemeData appBar = theme.appBarTheme;
     final TextDirection direction = Directionality.of(context);
 
     return FloatingSearchAppBarStyle(

@@ -74,7 +74,7 @@ abstract class FloatingSearchBarTransition {
   void rebuild() => searchBar.rebuild();
 
   @override
-  // ignore: hash_and_equals
+  // ignore: hash_and_equals, non_nullable_equals_parameter
   bool operator ==(dynamic other) => other.runtimeType == runtimeType;
 }
 
@@ -255,6 +255,7 @@ abstract class OverlayingFloatingSearchBarTransition
   }
 
   @override
+  // ignore: non_nullable_equals_parameter
   bool operator ==(dynamic other) {
     if (identical(this, other)) {
       return true;

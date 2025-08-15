@@ -36,6 +36,9 @@ class FloatingSearchBarScrollNotifier extends StatelessWidget {
           // finishes.
           if (metrics.pixels < 0 || metrics.pixels > metrics.maxScrollExtent) {
             metrics = FixedScrollMetrics(
+              devicePixelRatio: WidgetsBinding.instance.platformDispatcher
+                      .implicitView?.devicePixelRatio ??
+                  1,
               pixels: metrics.pixels < 0 ? 0 : metrics.maxScrollExtent,
               axisDirection: metrics.axisDirection,
               maxScrollExtent: metrics.maxScrollExtent,

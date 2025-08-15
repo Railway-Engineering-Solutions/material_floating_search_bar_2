@@ -6,7 +6,6 @@ import 'package:flutter/material.dart'
 import 'package:flutter/services.dart';
 
 import '../material_floating_search_bar_2.dart';
-
 import 'floating_search_bar_dismissable.dart';
 import 'search_bar_style.dart';
 import 'text_controller.dart';
@@ -360,7 +359,7 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
   /// {@endtemplate}
   final bool autocorrect;
 
-  /// {@template floating_search_bar. contextMenuBuilder}
+  /// {@template floating_search_bar.contextMenuBuilder}
   /// The [EditableTextContextMenuBuilder] of the [TextField] of
   /// this `FloatingSearchBar`.
   /// {@endtemplate}
@@ -537,15 +536,6 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
   void open() => isOpen = true;
   void close() => isOpen = false;
 
-  Future<bool> _onPop() async {
-    if (isOpen) {
-      close();
-      return false;
-    }
-
-    return true;
-  }
-
   void _onClosed() {
     _offset = 0.0;
 
@@ -609,8 +599,12 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
     final SizedBox searchBar = SizedBox.expand(
       child: isAvailableSwipeBack
           ? _getSearchBarWidget()
-          : WillPopScope(
-              onWillPop: _onPop,
+          : PopScope(
+              onPopInvokedWithResult: (bool didPop, Object? result) {
+                if (didPop) {
+                  isOpen = false;
+                }
+              },
               child: _getSearchBarWidget(),
             ),
     );
