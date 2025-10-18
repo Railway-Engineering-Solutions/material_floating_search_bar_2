@@ -54,6 +54,7 @@ class FloatingSearchAppBar extends ImplicitlyAnimatedWidget {
     this.autocorrect = true,
     this.contextMenuBuilder,
     this.onKeyEvent,
+    this.showGradient = true,
   })  : assert(progress == null || (progress is num || progress is bool)),
         super(key, implicitDuration, implicitCurve);
 
@@ -186,6 +187,9 @@ class FloatingSearchAppBar extends ImplicitlyAnimatedWidget {
   final EditableTextContextMenuBuilder? contextMenuBuilder;
 
   final ValueChanged<KeyEvent>? onKeyEvent;
+
+  /// Whether to show the gradient on the left and right of the input field
+  final bool showGradient;
 
   static FloatingSearchAppBarState? of(BuildContext context) {
     return context.findAncestorStateOfType<FloatingSearchAppBarState>();
@@ -547,8 +551,10 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
             alignment: AlignmentDirectional.centerStart,
             children: <Widget>[
               _buildInputField(),
-              buildGradient(isLeft: true),
-              buildGradient(isLeft: false),
+              if (widget.showGradient) ...<Widget>[
+                buildGradient(isLeft: true),
+                buildGradient(isLeft: false),
+              ],
             ],
           ),
         ),
