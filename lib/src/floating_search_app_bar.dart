@@ -258,11 +258,7 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
   Duration get transitionDuration => widget.transitionDuration;
 
   FloatingSearchAppBarStyle get style => value;
-  Color get backgroundColor => Color.lerp(
-        style.backgroundColor,
-        style.colorOnScroll,
-        scrollAnimation.value,
-      )!;
+  Color get backgroundColor => style.backgroundColor;
 
   bool get hasActions => actions.isNotEmpty;
   List<Widget> get actions {
