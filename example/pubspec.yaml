@@ -1,6 +1,6 @@
 name: example
 description: Example project for the material_floating_search_bar
-version: 1.0.0+1
+version: 1.0.1+1
 publish_to: none
 
 environment:
