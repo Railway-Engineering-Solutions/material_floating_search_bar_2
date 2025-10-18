@@ -1,3 +1,7 @@
+## 0.4.3
+
+* **Added** `showGradient` flag to `FloatingSearchAppBar`
+
 ## 0.4.2
 
 * **Breaking** Replaced deprecated `ToolbarOptions` with `EditableTextContextMenuBuilder`
