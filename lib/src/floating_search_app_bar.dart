@@ -478,11 +478,6 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
 
   Widget _buildBar() {
     final double statusBarHeight = isAppBar ? _statusBarHeight : 0.0;
-    final double elevation = lerpDouble(
-      style.elevation,
-      style.liftOnScrollElevation,
-      scrollAnimation.value,
-    )!;
 
     final GestureDetector bar = GestureDetector(
       onTap: () {
@@ -493,14 +488,11 @@ class FloatingSearchAppBarState extends ImplicitlyAnimatedWidgetState<
           isOpen = true;
         }
       },
-      child: Material(
+      child: Container(
         color: backgroundColor,
-        elevation: elevation,
-        child: Container(
-          height: style.height + statusBarHeight,
-          padding: style.padding.add(EdgeInsets.only(top: statusBarHeight)),
-          child: _buildInputAndActions(),
-        ),
+        height: style.height + statusBarHeight,
+        padding: style.padding.add(EdgeInsets.only(top: statusBarHeight)),
+        child: _buildInputAndActions(),
       ),
     );
     return isAvailableSwipeBack
