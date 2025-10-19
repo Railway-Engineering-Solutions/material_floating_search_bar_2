@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart'
     hide ImplicitlyAnimatedWidget, ImplicitlyAnimatedWidgetState;
@@ -669,20 +668,14 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
             parent: _translateAnimation,
             curve: const Interval(0.95, 1.0),
           ),
-          builder: (BuildContext context, Widget? child) => Material(
-            elevation: transition.lerpElevation() *
-                (1.0 - interval(0.95, 1.0, _translateAnimation.value)),
-            shadowColor: style.shadowColor,
-            borderRadius: borderRadius,
-            child: child,
-          ),
+          builder: (BuildContext context, Widget? child) =>
+              child ?? const SizedBox.shrink(),
           child: Container(
             width: transition.lerpWidth(),
             height: transition.lerpHeight(),
             padding: EdgeInsets.only(top: padding.top, bottom: padding.bottom),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: transition.lerpBackgroundColor(),
               border: Border.fromBorderSide(style.border),
               borderRadius: borderRadius,
             ),
@@ -726,7 +719,7 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
       key: barKey,
       height: 1000,
       controller: widget.controller,
-      color: transition.lerpBackgroundColor(),
+      color: widget.backgroundColor ?? transition.lerpBackgroundColor(),
       onFocusChanged: (bool isFocused) {
         isOpen = isFocused;
         widget.onFocusChanged?.call(isFocused);
@@ -777,27 +770,22 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
                 ),
               ),
             ),
-          Material(
-            elevation: transition.lerpInnerElevation(),
-            shadowColor: style.shadowColor,
-            child: Container(
-              height: style.height,
-              color: transition.lerpBackgroundColor(),
-              alignment: Alignment.topCenter,
-              child: Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width: transition.lerpInnerWidth(),
-                    child: textField,
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: transition.buildDivider(),
-                  ),
-                ],
-              ),
+          Container(
+            height: style.height,
+            alignment: Alignment.topCenter,
+            child: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: <Widget>[
+                SizedBox(
+                  width: transition.lerpInnerWidth(),
+                  child: textField,
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: transition.buildDivider(),
+                ),
+              ],
             ),
           ),
         ],
