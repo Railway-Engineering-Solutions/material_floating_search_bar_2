@@ -1,3 +1,11 @@
+## 0.4.5
+
+* **Added** `showGradient` flag to `FloatingSearchBar`
+
+## 0.4.4
+
+Removed combination of backgroundColor and accentColor to use a single backgroundColor
+
 ## 0.4.3
 
 * **Added** `showGradient` flag to `FloatingSearchAppBar`

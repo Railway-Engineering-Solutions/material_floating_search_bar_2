@@ -76,6 +76,7 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
     this.showCursor = true,
     bool initiallyHidden = false,
     this.onKeyEvent,
+    this.showGradient = true,
   })  : showAfter =
             showAfter ?? (initiallyHidden ? const Duration(days: 1) : null),
         super(key, implicitDuration, implicitCurve);
@@ -400,6 +401,9 @@ class FloatingSearchBar extends ImplicitlyAnimatedWidget {
   /// The [EdgeInsets] of the [SingleChildScrollView] holding the expandable body of
   /// this `FloatingSearchBar`.
   final EdgeInsets scrollPadding;
+
+  /// Whether to show the gradient on the search bar.
+  final bool showGradient;
 
   @override
   FloatingSearchBarState createState() => FloatingSearchBarState();
@@ -755,6 +759,7 @@ class FloatingSearchBarState extends ImplicitlyAnimatedWidgetState<
       titleStyle: widget.queryStyle,
       shadowColor: style.shadowColor,
       onKeyEvent: widget.onKeyEvent,
+      showGradient: widget.showGradient,
     );
 
     return SizedBox.expand(
